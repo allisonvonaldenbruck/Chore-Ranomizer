@@ -6,8 +6,9 @@ on:
     - cron: "0 12 * * *"   # every day at 12:00 UTC (8am Eastern during daylight time)
   workflow_dispatch:        # lets you run it manually from the Actions tab
 
-permissions:
-  issues: write
+   permissions:
+     contents: read
+     issues: write
 
 jobs:
   pick-chore:
