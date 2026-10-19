@@ -1,0 +1,24 @@
+# Save this file as .github/workflows/chore-of-the-day.yml in your repo
+name: Chore of the day
+
+on:
+  schedule:
+    - cron: "0 12 * * *"   # every day at 12:00 UTC (8am Eastern during daylight time)
+  workflow_dispatch:        # lets you run it manually from the Actions tab
+
+permissions:
+  issues: write
+
+jobs:
+  pick-chore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pick today's chore and open an issue
+        run: python chore_of_the_day.py --issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
